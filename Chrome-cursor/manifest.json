@@ -1,0 +1,24 @@
+{
+    "name": "浏览器鼠标光标修改",
+    "version": "1.0.1",
+    "manifest_version": 2,
+    "description": "浏览器鼠标光标修改--jyeontu",
+    "icons": {
+       "16": "image/1.png",
+       "48": "image/1.png",
+       "128": "image/1.png"
+    },
+    "browser_action": {
+        "default_title": "查看",
+        "default_icon": "image/1.png",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+			"css": ["mystyles.css"],
+            "js": ["jquery-3.6.0.min.js","changebg.js"]
+        }
+    ],
+    "permissions" : ["tabs", "activeTab"]
+}
