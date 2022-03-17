@@ -5,8 +5,73 @@ Chrome浏览器插件
 javascript实现
 
 
-#### 软件架构
-软件架构说明
+#### 项目结构
+```txt
+
+┌───Chrome-backGround                           //自定义背景插件
+├──────Chrome-backGround/changebg.js
+├──────Chrome-backGround/dialog.js
+├──────Chrome-backGround/getBase64.js
+├──────Chrome-backGround/gif
+├──────Chrome-backGround/image
+├──────Chrome-backGround/indexedBb.js
+├──────Chrome-backGround/jquery-3.6.0.min.js
+├──────Chrome-backGround/manifest.json
+├──────Chrome-backGround/mystyles.css
+├──────Chrome-backGround/popup.html
+├──────Chrome-backGround/popup.js
+├──────Chrome-backGround/README.md
+├───Chrome-backGroundVideo                      //设置B站视频为背景视频
+├──────Chrome-backGroundVideo/changebg.js
+├──────Chrome-backGroundVideo/image
+├──────Chrome-backGroundVideo/jquery-3.6.0.min.js
+├──────Chrome-backGroundVideo/manifest.json
+├──────Chrome-backGroundVideo/mystyles.css
+├──────Chrome-backGroundVideo/popup.html
+├──────Chrome-backGroundVideo/popup.js
+├──────Chrome-backGroundVideo/README.md
+├───Chrome-cursor                               //更换鼠标图标（未完成）
+├──────Chrome-cursor/changebg.js
+├──────Chrome-cursor/dialog.js
+├──────Chrome-cursor/getBase64.js
+├──────Chrome-cursor/gif
+├──────Chrome-cursor/image
+├──────Chrome-cursor/indexedBb.js
+├──────Chrome-cursor/jquery-3.6.0.min.js
+├──────Chrome-cursor/manifest.json
+├──────Chrome-cursor/mystyles.css
+├──────Chrome-cursor/popup.html
+├──────Chrome-cursor/popup.js
+├──────Chrome-cursor/README.md
+├───Chrome-fireworkClick                        //鼠标点击烟花效果
+├──────Chrome-fireworkClick/1.jpg
+├──────Chrome-fireworkClick/firework.js
+├──────Chrome-fireworkClick/manifest.json
+├───Chrome-tools-plugin
+├──────Chrome-tools-plugin/components
+├──────Chrome-tools-plugin/configs
+├──────Chrome-tools-plugin/css
+├──────Chrome-tools-plugin/dataBases
+├──────Chrome-tools-plugin/else
+├──────Chrome-tools-plugin/image
+├──────Chrome-tools-plugin/index.js
+├──────Chrome-tools-plugin/manifest.json
+├──────Chrome-tools-plugin/popup.html
+├──────Chrome-tools-plugin/popup.js
+├──────Chrome-tools-plugin/README.md
+├──────Chrome-tools-plugin/readmeImg
+├──────Chrome-tools-plugin/utils
+├──────Chrome-tools-plugin/views
+├──────Chrome-tools-plugin/工具
+├───Chrome-webPet                               //Chrome桌宠超简版
+├──────Chrome-webPet/1.jpg
+├──────Chrome-webPet/jquery-3.6.0.min.js
+├──────Chrome-webPet/manifest.json
+├──────Chrome-webPet/webPet.js
+├──────Chrome-webPet/水门.gif
+├───LICENSE
+└───README.md
+```
 
 
 #### 安装教程
