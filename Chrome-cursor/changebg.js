@@ -258,20 +258,21 @@ function changebg(ind,imgSrc = ''){
 	const bgimg = getImgList(),
 		colors = config.colors,
 		gdiv = document.getElementById('changdiv'),
-		gbody = document.getElementsByTagName('body')[0],
-		gbtn = document.getElementById('gbtn');
+		gbody = document.getElementsByTagName('body')[0];
 	// if(bgimg.length == 0) ind = 3;
+	const cursorLRArrow = document.getElementById('cursorLRArrow');
 	gbody.style.opacity = '0.8';
 	isHide = false;
-	gbtn.style.display = 'block';
 	if(imgSrc !== ''){
 		gdiv.style.backgroundImage ="url("+imgSrc+")";
+		cursorLRArrow.style.backgroundImage ="url("+imgSrc+")";
 		gdiv.style.backgroundRepeat = "no-repeat";
 		gdiv.style.backgroundSize = "cover";
 	}else if(ind == 1){//随机切换图片
 		let num = randomNum(0,bgimg.length-1);
 		let src = bgimg[num];
 		gdiv.style.backgroundImage ="url("+src+")";
+		cursorLRArrow.style.backgroundImage ="url("+src+")";
 		gdiv.style.backgroundRepeat = "no-repeat";
 		gdiv.style.backgroundSize = "cover";
 	}else if(ind == 0){//随机切换背景颜色
@@ -282,7 +283,6 @@ function changebg(ind,imgSrc = ''){
 		gbody.style.opacity = '1';
 		gdiv.style.backgroundImage = "";
 		gdiv.style.backgroundColor = "";
-		gbtn.style.display = 'none';
 		isHide = true;
 	}else if(ind == 4){//顺序切换背景图片
 		let num = byorder(bgimg.length);
@@ -292,6 +292,29 @@ function changebg(ind,imgSrc = ''){
 		gdiv.style.backgroundSize = "cover";
 	}
 };
+
+function generateCursor(){
+	const gbody = document.getElementsByTagName('body')[0];
+	const cursorLRArrow = document.getElementById('cursorLRArrow');
+	cursorLRArrow && gbody.remove(cursorLRArrow);
+	const span = document.createElement('span');
+	span.setAttribute('style','display:none;position:absolute;z-index:9998;width:32px;height:32px;cursor:none;pointer-events:none;background-size: cover;background-repeat: no-repeat;');
+	span.id = 'cursorLRArrow';
+	gbody.append(span);
+};
+
+$(function(){
+	$('body').mousemove(function(e){
+		var x = e.pageX; //光标距文档左距
+		var y = e.pageY; //光标距文档上距
+		$(this).css('cursor','none'); $('#cursorLRArrow').css({
+			display:'inline-block',
+			left:(x-15)+'px',
+			top:(y-10)+'px'
+		});
+		$('#cursorLRArrow').show();
+	})
+});
 //生成一个div作为图片容器
 function generateImgContent(){
 	let gbody = document.getElementsByTagName('body')[0];
@@ -310,70 +333,6 @@ function generateImgContent(){
 	};
 	ghtml.appendChild(tagConfingSet(gdiv,config));
 };
-//生成页面上的切换按钮
-function generateBtn(){
-	let ghtml = document.getElementsByTagName('html')[0],
-		gbtn = document.createElement('div');
-	gbtn.id = 'gbtn';
-	const config = {
-		opacity: '0.6',
-		position: 'fixed',
-		right: '40px',
-		top: '50%',
-		border: 'solid black 1px',
-		width: '80px',
-		height: '80px',
-		borderRadius: '50% 50%',
-		lineHeight: '80px',
-		textAlign: 'center',
-		backgroundImage: "linear-gradient(#e66465, #9198e5)",
-		fontSize: "initial",
-		cursor: "pointer",
-	};
-	gbtn.innerText = "切换图片";
-	ghtml.appendChild(tagConfingSet(gbtn,config));
-	
-	$("#gbtn").hover(function(){
-		let w = parseInt($("#gbtn").css("left"));
-		if(w == windowWidth-20){
-			$("#gbtn").css({"left":windowWidth-80});
-		}
-	},function(){
-		let w = parseInt($("#gbtn").css("left"));
-		if(w >= windowWidth-80){
-			$("#gbtn").css({"left":windowWidth-20});
-		}
-
-	});
-	
-	//按钮拖拽功能
-	$("#gbtn").mousedown(function(e){
-		gmove=true;
-		startX = e.pageX
-		startY = e.pageY
-		_gx=e.pageX-parseInt($("#gbtn").css("left"));
-		_gy=e.pageY-parseInt($("#gbtn").css("top"));
-	});
-	$(document).mousemove(function(e){
-		if(gmove){
-			var x=e.pageX-_gx;//控件左上角到屏幕左上角的相对位置
-			var y=e.pageY-_gy;
-			$("#gbtn").css({"top":y,"left":x});
-		}
-	}).mouseup(function(e){
-		endX = e.pageX;
-		endY = e.pageY;
-		let d = Math.sqrt((startX - endX) * (startX - endX) + (startY - endY) * (startY - endY));
-		if (d === 0 || d < 7) {
-			changebg(4);
-		} else {
-			if(windowWidth - endX < 60){
-				$("#gbtn").css({"left":windowWidth-20});
-			}
-		}
-		gmove=false;
-	});
-};
 //设置style
 function tagConfingSet(el,config){
 	for(let key in config){
@@ -383,8 +342,8 @@ function tagConfingSet(el,config){
 };
 //页面初始化
 function init(){
+	generateCursor();
 	generateImgContent();
-	generateBtn();
 }
 function keyDown(){
 	//ctrlKey（metaKey）、altKey、shiftKey
