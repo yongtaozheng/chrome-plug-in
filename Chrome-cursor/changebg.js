@@ -1,21 +1,5 @@
 var showind = 0;
-var gmove=false;
-var startX;
-var startY;
-var endX;
-var endY;
-var _gx,_gy;
-var windowWidth = window.innerWidth;
-var isHide = false;
 var localListData;
-var localJData = {
-	localListData:[],
-	isHide:false
-};
-var showImgSrc = 'https://images8.alphacoders.com/992/992329.jpg';
-const config = {
-	colors: ['#482936','#461629','#35333c','#11659a'],
-}
 
 const getString = function(data){
 	if(Array.isArray(data)) return data.join('');
@@ -142,11 +126,12 @@ function getDataByKey(db, storeName, key) {
 }
 
 var db;
-var dbName = "bgImgDb",tableName = "bgImgList";
+var dbName = "cursorImgDb",tableName = "cursorImgList";
 let dbOpen = openDB(dbName,tableName);
 
 function dbGet(key = 'localList'){
 	getDataByKey(db, tableName, key).then(res => {
+		console.log('%c 🦀 res: ', 'font-size:20px;background-color: #33A5FF;color:#fff;', res);
 		if(res == undefined){
 			dbAdd([]);
 			localListData = [];
@@ -178,19 +163,6 @@ dbOpen.then(res => {
 	console.log('err',err);
 })
 //-----------------数据库操作结束-------------------------------
-//发送请求
-function initDb(){
-	chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
-		console.log(response.farewell);
-	});
-};
-//发送请求
-function sendToBackground(action){
-	chrome.runtime.sendMessage({action: action}, function(response) {
-		// console.log(response);
-	});
-};
-// initDb();
 //接受页面请求
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
@@ -204,17 +176,13 @@ chrome.runtime.onMessage.addListener(
 				changebg(1);
 				sendResponse({state:'切换成功！'});
 				break;
-			case 'cancelchange':
-				changebg(3);
-				sendResponse({state:'删除背景！'});
-				break;
 			case 'sendData':
 				let rData = JSON.parse(request.data) || [];
 				if(rData.length > 0 || request.doDelete){
 					localListData = rData;
 					dbUpdate(localListData);
 				}
-				const gdiv = document.getElementById('changdiv'),
+				const gdiv = document.getElementById('cursorLRArrow'),
 					tImg = gdiv.style.backgroundImage.slice(5,-2);
 				const flag = localListData.some(item => {
 					return item == tImg;
@@ -243,54 +211,18 @@ function randomNum(min,max){
         case 2: 
             return Math.floor(Math.random()*(max-min+1)+min); 
         break; 
-            default: 
-                return 0; 
-            break; 
+		default: 
+			return 0; 
+		break; 
     } 
 } 
-//顺序切换图片
-function byorder(max){ 
-     showind = (showind + 1) % max;
-	 return showind;
-} 
-//切换背景
+//切换图标
 function changebg(ind,imgSrc = ''){
-	const bgimg = getImgList(),
-		colors = config.colors,
-		gdiv = document.getElementById('changdiv'),
-		gbody = document.getElementsByTagName('body')[0];
-	// if(bgimg.length == 0) ind = 3;
+	const bgimg = getImgList();
+	const num = randomNum(0,bgimg.length-1);
+	const src = bgimg[num];
 	const cursorLRArrow = document.getElementById('cursorLRArrow');
-	gbody.style.opacity = '0.8';
-	isHide = false;
-	if(imgSrc !== ''){
-		gdiv.style.backgroundImage ="url("+imgSrc+")";
-		cursorLRArrow.style.backgroundImage ="url("+imgSrc+")";
-		gdiv.style.backgroundRepeat = "no-repeat";
-		gdiv.style.backgroundSize = "cover";
-	}else if(ind == 1){//随机切换图片
-		let num = randomNum(0,bgimg.length-1);
-		let src = bgimg[num];
-		gdiv.style.backgroundImage ="url("+src+")";
-		cursorLRArrow.style.backgroundImage ="url("+src+")";
-		gdiv.style.backgroundRepeat = "no-repeat";
-		gdiv.style.backgroundSize = "cover";
-	}else if(ind == 0){//随机切换背景颜色
-		gdiv.style.backgroundImage = "";
-		let num = randomNum(0,colors.length-1);
-		gdiv.style.backgroundColor = colors[num];
-	}else if(ind == 3){//删除背景颜色和背景图片
-		gbody.style.opacity = '1';
-		gdiv.style.backgroundImage = "";
-		gdiv.style.backgroundColor = "";
-		isHide = true;
-	}else if(ind == 4){//顺序切换背景图片
-		let num = byorder(bgimg.length);
-		let src = bgimg[num];
-		gdiv.style.backgroundImage ="url("+src+")";
-		gdiv.style.backgroundRepeat = "no-repeat";
-		gdiv.style.backgroundSize = "cover";
-	}
+	cursorLRArrow.style.backgroundImage ="url("+(imgSrc || src)+")";
 };
 
 function generateCursor(){
@@ -307,7 +239,8 @@ $(function(){
 	$('body').mousemove(function(e){
 		var x = e.pageX; //光标距文档左距
 		var y = e.pageY; //光标距文档上距
-		$(this).css('cursor','none'); $('#cursorLRArrow').css({
+		$(this).css('cursor','none'); 
+		$('#cursorLRArrow').css({
 			display:'inline-block',
 			left:(x-15)+'px',
 			top:(y-10)+'px'
@@ -315,24 +248,6 @@ $(function(){
 		$('#cursorLRArrow').show();
 	})
 });
-//生成一个div作为图片容器
-function generateImgContent(){
-	let gbody = document.getElementsByTagName('body')[0];
-	gbody.style.opacity = '0.8';
-	let ghtml = document.getElementsByTagName('html')[0],
-				gdiv = document.createElement('div');
-	gdiv.id = 'changdiv';
-	const config = {
-		position: 'fixed',
-		width: '100%',
-		height: '100%',
-		top: '0px',
-		left: '0px',
-		opacity: '0.7',
-		zIndex: '-1',
-	};
-	ghtml.appendChild(tagConfingSet(gdiv,config));
-};
 //设置style
 function tagConfingSet(el,config){
 	for(let key in config){
@@ -343,61 +258,13 @@ function tagConfingSet(el,config){
 //页面初始化
 function init(){
 	generateCursor();
-	generateImgContent();
-}
-function keyDown(){
-	//ctrlKey（metaKey）、altKey、shiftKey
-	$(document).keydown(function(event){
-		//alt + z 隐藏显示
-		if(event.altKey && event.keyCode==90){
-			if(isHide){
-				changebg(1);
-			}else{
-				changebg(3);
-			}
-		}
-		//alt + x 切换图片(可能会被截屏占用快捷键)
-		else if(event.altKey && event.keyCode==88){
-			if(!isHide){
-				changebg(4);
-			}
-		}
-		//alt + w 切换图片
-		else if(event.altKey && event.keyCode==87){
-			if(!isHide){
-				changebg(4);
-			}
-		}
-		//alt + c 切换颜色
-		else if(event.altKey && event.keyCode==67){
-			if(!isHide){
-				changebg(0);
-			}
-		}
-	});
 }
 
 init();
 changebg(1);
-keyDown();
-
 
 function getImgList(){
-	const appendImgList = [
-		// 'https://images8.alphacoders.com/992/992329.jpg',
-		// 'https://images4.alphacoders.com/958/958516.jpg',
-		// 'https://images5.alphacoders.com/974/974380.jpg',
-		// 'https://images2.alphacoders.com/227/227642.jpg',
-		// 'https://i.loli.net/2021/08/17/MTg6SndXF4sVCiy.gif',
-		// 'https://i.loli.net/2021/08/17/GjtMSymTq8lD2si.gif',
-		// 'https://i.loli.net/2021/08/17/3GBeFdgKuOU7yNj.gif',
-		// 'https://i.loli.net/2021/08/17/LSn5XGEtiBerzCT.jpg',
-		// 'https://i.loli.net/2021/08/17/lvSxaI6bkEQM2Zi.gif',
-		// 'https://i.loli.net/2021/08/17/J8G3sZNvcEP25XA.gif',
-		// 'https://i.loli.net/2021/08/17/rAgy5KFLscHzoUh.gif',
-		// 'https://i.loli.net/2021/08/17/zLQiVCnldc5XOay.gif',
-		// 'https://i.loli.net/2021/08/17/1UyQOA5HfvClFXj.gif'
-	];
+	const appendImgList = [];
 	const localList = [
 		...(localListData||[]),
 		...appendImgList

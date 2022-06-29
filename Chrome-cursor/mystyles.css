@@ -2,3 +2,6 @@
 	background-color: azure;
 	height: 200px;
 }
+*{
+	cursor: none;
+}
