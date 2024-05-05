@@ -5,22 +5,22 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 // function appendDiv() {
-//   const chromePlugPanelApp = document.createElement("div");
-//   chromePlugPanelApp.id = "chromePlugPanelApp";
-//   document.body.appendChild(chromePlugPanelApp);
+//   const 一键保存浏览器打开的所有标签App = document.createElement("div");
+//   一键保存浏览器打开的所有标签App.id = "一键保存浏览器打开的所有标签App";
+//   document.body.appendChild(一键保存浏览器打开的所有标签App);
 //   console.log("插件面板已插入");
 //   fastKeyListen();
 // }
 // function fastKeyListen() {
 //   const keydownFn = (event) => {
 //     if (event.altKey && event.key === "v") {
-//       const chromePlugPanel = document.getElementById("chromePlugPanelApp");
-//       chromePlugPanel.style.display =
-//         chromePlugPanel.style.display === "none" ? "block" : "none";
+//       const 一键保存浏览器打开的所有标签 = document.getElementById("一键保存浏览器打开的所有标签App");
+//       一键保存浏览器打开的所有标签.style.display =
+//         一键保存浏览器打开的所有标签.style.display === "none" ? "block" : "none";
 //     }
 //   };
-//   const chromePlugPanel = document.getElementById("chromePlugPanelApp");
+//   const 一键保存浏览器打开的所有标签 = document.getElementById("一键保存浏览器打开的所有标签App");
 //   document.addEventListener("keydown", keydownFn);
-//   chromePlugPanel.addEventListener("keydown", keydownFn);
+//   一键保存浏览器打开的所有标签.addEventListener("keydown", keydownFn);
 // }
 // appendDiv();

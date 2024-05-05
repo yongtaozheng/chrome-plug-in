@@ -1,12 +1,14 @@
 <template>
-  <div id="chromePlugPanelApp" v-show="showPanel">
-    <div id="chromePlugPanelMask" @click="closePanel()"></div>
-    <div id="chromePlugPanel">
-      <span id="chromePlugPanelClose" @click="closePanel()">×</span>
+  <div id="一键保存浏览器打开的所有标签App" v-show="showPanel">
+    <div id="一键保存浏览器打开的所有标签Mask" @click="closePanel()"></div>
+    <div id="一键保存浏览器打开的所有标签">
+      <span id="一键保存浏览器打开的所有标签Close" @click="closePanel()"
+        >×</span
+      >
       <tabBar
         :tabList="tabList"
         v-model="activeTab"
-        id="chromePlugPanelTabBar"
+        id="一键保存浏览器打开的所有标签TabBar"
       ></tabBar>
       <div style="width: 100%; flex: 1; overflow: scroll">
         <iframe
@@ -29,7 +31,7 @@
 <script>
 import tabBar from "./components/common/tabBar.vue";
 export default {
-  name: "chromePlugPanelApp",
+  name: "一键保存浏览器打开的所有标签App",
   components: {
     tabBar,
   },
@@ -58,12 +60,15 @@ export default {
         this.showPanel = !this.showPanel;
       }
     };
-    const chromePlugPanel = document.getElementById("chromePlugPanel");
-    const chromePlugPanelMask = document.getElementById("chromePlugPanelMask");
+    const 一键保存浏览器打开的所有标签 =
+      document.getElementById("一键保存浏览器打开的所有标签");
+    const 一键保存浏览器打开的所有标签Mask =
+      document.getElementById("一键保存浏览器打开的所有标签Mask");
     document.addEventListener("keydown", keydownFn);
-    chromePlugPanel && chromePlugPanel.addEventListener("keydown", keydownFn);
-    chromePlugPanelMask &&
-      chromePlugPanelMask.addEventListener("keydown", keydownFn);
+    一键保存浏览器打开的所有标签 &&
+      一键保存浏览器打开的所有标签.addEventListener("keydown", keydownFn);
+    一键保存浏览器打开的所有标签Mask &&
+      一键保存浏览器打开的所有标签Mask.addEventListener("keydown", keydownFn);
   },
   methods: {
     closePanel() {
@@ -74,7 +79,7 @@ export default {
 </script>
 
 <style scoped>
-#chromePlugPanelMask {
+#一键保存浏览器打开的所有标签Mask {
   position: fixed;
   background: #b6bdc4;
   opacity: 0.2;
@@ -83,7 +88,7 @@ export default {
   top: 0;
   left: 0;
 }
-#chromePlugPanel {
+#一键保存浏览器打开的所有标签 {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -103,7 +108,7 @@ export default {
 .logo {
   width: 200px;
 }
-#chromePlugPanelClose {
+#一键保存浏览器打开的所有标签Close {
   position: absolute;
   right: 0;
   font-size: xx-large;
@@ -111,10 +116,10 @@ export default {
   top: 0;
   padding: 0 0.5em;
 }
-#chromePlugPanelClose:hover {
+#一键保存浏览器打开的所有标签Close:hover {
   background: red;
 }
-#chromePlugPanelTabBar {
+#一键保存浏览器打开的所有标签TabBar {
   padding-right: 4em;
 }
 </style>

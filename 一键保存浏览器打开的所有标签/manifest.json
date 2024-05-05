@@ -32,7 +32,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "panel/dist/js/app.d85eb57e.js",
+        "panel/dist/js/app.38c1e41c.js",
         "panel/dist/js/chunk-vendors.d4240060.js",
         "combinAllJs.js"
       ],

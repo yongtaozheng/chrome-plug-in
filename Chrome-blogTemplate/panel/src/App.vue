@@ -8,7 +8,7 @@
         v-model="activeTab"
         id="blogTemplateAppTabBar"
       ></tabBar>
-      <div style="width: 100%; flex: 1; overflow: scroll">
+      <div style="width: 100%; flex: 1; overflow: scroll; background: #fff">
         <iframe
           v-if="activeTab.title === '翻译'"
           title="翻译"
@@ -23,6 +23,7 @@
         ></iframe>
         <blogTemplate v-else-if="activeTab.title === '博客模板'">
         </blogTemplate>
+        <capture v-else-if="activeTab.title === '元素节点截图'"></capture>
       </div>
     </div>
   </div>
@@ -31,11 +32,13 @@
 <script>
 import tabBar from "./components/common/tabBar.vue";
 import blogTemplate from "./components/blogTemplate.vue";
+import capture from "./components/capture.vue";
 export default {
   name: "blogTemplateApp",
   components: {
     tabBar,
     blogTemplate,
+    capture,
   },
   data() {
     return {
@@ -45,6 +48,9 @@ export default {
       tabList: [
         {
           title: "博客模板",
+        },
+        {
+          title: "元素节点截图",
         },
         {
           title: "翻译",
