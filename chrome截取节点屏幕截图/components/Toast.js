@@ -71,7 +71,7 @@ if (!window.ToastJY) {
       textElem.innerText = text;
 
       // 显示Toast提示
-      toastContainer.style.display = "block";
+      this.show();
 
       // 3秒后隐藏Toast提示
       setTimeout(() => this.hide(), 3000);
