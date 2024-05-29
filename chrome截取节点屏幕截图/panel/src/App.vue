@@ -5,8 +5,15 @@
       <span id="capturePlugPanelClose" @click="closePanel()">×</span>
       <div style="width: 100%; flex: 1; overflow: scroll; padding: 2em">
         <h3>截取节点屏幕截图</h3>
-        <input placeholder="请输入节点选择器" v-model="selector" />
-        <button @click="search()">确定</button>
+        <textarea
+          class=""
+          style="width: 80%; height: 10em"
+          placeholder="请输入节点选择器"
+          v-model="selector"
+        />
+        <div>
+          <button @click="search()">确定</button>
+        </div>
       </div>
     </div>
   </div>
@@ -47,23 +54,40 @@ export default {
     async search() {
       const elementToCaptures = document.querySelectorAll(this.selector);
       if (elementToCaptures.length === 0) return;
-      console.log(
-        "%c Line:50 🍅 elementToCaptures",
-        "color:#6ec1c2",
-        elementToCaptures
-      );
       await this.downloadElementImg(elementToCaptures);
     },
     async downloadElementImg(elementToCaptures) {
       for (let i = 0; i < elementToCaptures.length; i++) {
         const elementToCapture = elementToCaptures[i];
-        const canvas = await html2canvas(elementToCapture);
-        // 将canvas转换为图片并下载
-        const dataUrl = canvas.toDataURL();
-        const link = document.createElement("a");
-        link.download = `${new Date().getTime()}-$[i]`;
-        link.href = dataUrl;
-        link.click();
+        // 设置元素的背景颜色为白色
+        elementToCapture.style.backgroundColor = "#ffffff";
+        const btn = elementToCapture.querySelector(
+          "div > .ContentItem > .ContentItem-meta > .AuthorInfo > .FollowButton"
+        );
+        const footBtn = elementToCapture.querySelector(
+          "div > .ContentItem > .RichContent > div:nth-child(4) > div"
+        );
+        if (btn) {
+          btn.style.display = "none";
+        }
+        if (footBtn) {
+          footBtn.style.display = "none";
+        }
+        setTimeout(async () => {
+          // 捕获元素为canvas
+          const canvas = await html2canvas(elementToCapture, {
+            background: "#ffffff", // 设置html2canvas捕获时的背景颜色
+            allowTaint: false, // 阻止跨域图像影响
+            useCORS: true, // 允许跨域请求
+          });
+
+          // 将canvas转换为图片并下载
+          const dataUrl = canvas.toDataURL();
+          const link = document.createElement("a");
+          link.download = `${new Date().getTime()}-${i}.png`; // 设置下载文件的名称
+          link.href = dataUrl;
+          link.click();
+        }, 100);
       }
     },
   },
