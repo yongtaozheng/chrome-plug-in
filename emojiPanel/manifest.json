@@ -43,8 +43,8 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "panel/dist/js/app.b6af563e.js",
-        "panel/dist/js/chunk-vendors.8f6a52f1.js",
+        "panel/dist/js/app.3c856a35.js",
+        "panel/dist/js/chunk-vendors.34f0b59e.js",
         "combinAllJs.js"
       ],
       "matches": [
