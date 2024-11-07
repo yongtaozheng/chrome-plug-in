@@ -4,11 +4,11 @@ Chrome 浏览器插件
 
 ## 安装教程
 
-1.  git clone https://gitee.com/zheng_yongtao/chrome-plug-in.git
-2.  查看对应项目的 readme 文件
-3.  根据教程修改相关文件配置
-4.  将文件夹拉进 chrome 扩展
-5.  刷新页面就可看到效果了
+1. git clone https://gitee.com/zheng_yongtao/chrome-plug-in.git
+2. 查看对应项目的 readme 文件
+3. 根据教程修改相关文件配置
+4. 将文件夹拉进 chrome 扩展
+5. 刷新页面就可看到效果了
 
 ## 使用说明
 
@@ -60,6 +60,12 @@ Chrome 浏览器桌面换肤插件，可以选择自己喜欢的图片作为浏�
 
 平时我们写文章发消息的时候可能会用到一些 emoji 表情，这里集成了一些常用的 emoji 可快速复制使用。
 
+### 12、墨滴插件
+
+墨滴页面优化插件，目前已有功能：
+
+- 文章目录结构查看
+
 ## 公众号
 
 『前端也能这么有趣』
@@ -70,7 +76,7 @@ Chrome 浏览器桌面换肤插件，可以选择自己喜欢的图片作为浏�
 
 ## 参与贡献
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+1. Fork 本仓库
+2. 新建 Feat_xxx 分支
+3. 提交代码
+4. 新建 Pull Request
