@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "墨滴插件",
+  "version": "1.0.0",
+  "description": "墨滴插件",
+  "icons": {
+    "16": "目录.png",
+    "48": "目录.png",
+    "128": "目录.png"
+  },
+  "action": {
+    "default_title": "墨滴插件",
+    "default_icon": "目录.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://editor.mdnice.com/*"],
+      "js": ["bg.js"],
+      "run_at": "document_end",
+      "css": []
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [],
+      "matches": ["https://editor.mdnice.com/*"]
+    }
+  ],
+  "permissions": []
+}
