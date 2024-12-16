@@ -1,15 +1,18 @@
 {
   "manifest_version": 3,
-  "name": "Chrome-blogTemplate",
+  "name": "bilibiliVideoSpeedRate",
   "version": "1.0.0",
-  "description": "博客模板插件",
+  "description": "vue框架快速开发chrome插件",
+  "background": {
+    "service_worker": "background.js"
+  },
   "icons": {
     "16": "img/logo.png",
     "48": "img/logo.png",
     "128": "img/logo.png"
   },
   "action": {
-    "default_title": "Chrome-blogTemplate",
+    "default_title": "bilibiliVideoSpeedRate",
     "default_icon": "img/logo.png",
     "default_popup": "popup/dist/index.html"
   },
@@ -17,15 +20,6 @@
     {
       "matches": [
         "<all_urls>"
-      ],
-      "exclude_matches": [
-        "*://*/*.png",
-        "*://*/*.jpg",
-        "*://*/*.jpeg",
-        "*://*/*.gif",
-        "http://*:9999/*",
-        "http://*:8080/*",
-        "http://*:8081/*"
       ],
       "js": [
         "bg.js",
@@ -41,9 +35,9 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "panel/dist/js/app.57dfa8e2.js",
-        "panel/dist/js/chunk-vendors.57d7c63b.js",
-        "script/test.js"
+        "panel/dist/js/app.4bc62e57.js",
+        "panel/dist/js/chunk-vendors.b92c3903.js",
+        "combinAllJs.js"
       ],
       "matches": [
         "<all_urls>"
