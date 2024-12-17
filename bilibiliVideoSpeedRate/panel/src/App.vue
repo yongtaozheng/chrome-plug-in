@@ -3,55 +3,21 @@
     <div id="bilibiliVideoSpeedRateMask" @click="closePanel()"></div>
     <div id="bilibiliVideoSpeedRate">
       <span id="bilibiliVideoSpeedRateClose" @click="closePanel()">×</span>
-      <tabBar
-        :tabList="tabList"
-        v-model="activeTab"
-        id="bilibiliVideoSpeedRateTabBar"
-      ></tabBar>
-      <div style="width: 100%; flex: 1; overflow: scroll">
-        <iframe
-          v-if="activeTab.title === '翻译'"
-          title="翻译"
-          style="width: 100%; height: 100%"
-          src="https://fanyi.qq.com/"
-        ></iframe>
-      </div>
+      <div style="width: 100%; flex: 1; overflow: scroll"></div>
     </div>
   </div>
 </template>
 
 <script>
-import tabBar from "./components/common/tabBar.vue";
 export default {
   name: "bilibiliVideoSpeedRateApp",
-  components: {
-    tabBar,
-  },
+  components: {},
   data() {
     return {
-      activeTab: {
-        title: "翻译",
-      },
-      tabList: [
-        {
-          title: "翻译",
-        },
-      ],
       showPanel: false,
     };
   },
-  mounted() {
-    // const keydownFn = (event) => {
-    //   if (event.altKey && event.key === "v") {
-    //     this.showPanel = !this.showPanel;
-    //   }
-    // };
-    // const bilibiliVideoSpeedRate = document.getElementById("bilibiliVideoSpeedRate");
-    // const bilibiliVideoSpeedRateMask = document.getElementById("bilibiliVideoSpeedRateMask");
-    // document.addEventListener("keydown", keydownFn);
-    // bilibiliVideoSpeedRate && bilibiliVideoSpeedRate.addEventListener("keydown", keydownFn);
-    // bilibiliVideoSpeedRateMask && bilibiliVideoSpeedRateMask.addEventListener("keydown", keydownFn);
-  },
+  mounted() {},
   methods: {
     closePanel() {
       this.showPanel = false;
