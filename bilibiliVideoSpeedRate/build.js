@@ -2,6 +2,7 @@ const path = require("path");
 const child_process = require("child_process");
 const fs = require("fs-extra");
 const inquirer = require("@jyeontu/j-inquirer");
+const archiver = require("archiver");
 const crypto = require("crypto");
 const { minify } = require("uglify-js");
 
@@ -204,6 +205,51 @@ async function combinFile() {
   const result = minify(text);
   fs.writeFileSync("combinAllJs.js", result.code);
 }
+// 递归地将目录及其子目录、文件添加到压缩包的函数
+async function addDirectoryToArchive(dirPath, baseDir, archive) {
+  const files = await fs.readdir(dirPath);
+  for (const file of files) {
+    const filePath = path.join(dirPath, file);
+    const stats = await fs.stat(filePath);
+    if (stats.isDirectory()) {
+      await addDirectoryToArchive(filePath, baseDir, archive);
+    } else {
+      const relativePath = path.relative(baseDir, filePath);
+      archive.file(filePath, { name: relativePath });
+    }
+  }
+}
+
+// 创建指定目录的压缩包
+async function compressDirectory(directoryPath, zipFileName) {
+  try {
+    const output = fs.createWriteStream(zipFileName);
+    const archive = archiver("zip");
+
+    archive.on("data", (data) => {
+      output.write(data);
+    });
+
+    archive.on("end", () => {
+      output.close();
+      console.log(`${directoryPath} 目录压缩完成，压缩包名为 ${zipFileName}`);
+    });
+
+    archive.on("error", (err) => {
+      console.error("压缩过程出现错误：", err);
+    });
+
+    await addDirectoryToArchive(directoryPath, directoryPath, archive);
+
+    archive.finalize();
+
+    // await new Promise((resolve) => {
+    //     output.on('finish', resolve);
+    // });
+  } catch (err) {
+    console.error("压缩操作出错：", err);
+  }
+}
 
 async function run() {
   await buildPopup();
@@ -216,6 +262,7 @@ async function run() {
   await combinFile();
   await createDist();
   console.log(`打包完成`);
+  compressDirectory("dist", "dist.zip");
 }
 // 监听文件夹的哈希值变化
 function watchFolder(folderPath = "./") {

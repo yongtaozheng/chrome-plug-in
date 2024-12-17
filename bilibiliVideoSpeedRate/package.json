@@ -21,9 +21,10 @@
   "license": "ISC",
   "dependencies": {
     "@jyeontu/j-inquirer": "^1.0.5",
+    "archiver": "^7.0.1",
     "child_process": "^1.0.2",
+    "figlet": "^1.7.0",
     "fs-extra": "^11.2.0",
-    "uglify-js": "^3.17.4",
-    "figlet": "^1.7.0"
+    "uglify-js": "^3.17.4"
   }
 }
