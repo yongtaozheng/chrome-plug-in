@@ -4,7 +4,7 @@ if (!window.DialogJY) {
       this.options = options;
       this.el = document.createElement("div");
       this.el.className = "dialogJY-modal";
-      this.el.setAttribute("aria-hidden", "true");
+      this.el.style.display = "none";
       this.init();
     }
 
@@ -62,12 +62,12 @@ if (!window.DialogJY) {
     }
 
     close() {
-      this.el.setAttribute("aria-hidden", "true");
+      this.el.style.display = "none";
       // 这里可以添加一些清理工作，如移除事件监听器
     }
 
     open() {
-      this.el.removeAttribute("aria-hidden");
+      this.el.style.display = "block";
     }
   }
   window.DialogJY = DialogJY;
