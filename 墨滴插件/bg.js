@@ -36,13 +36,15 @@ const addMenuPanel = () => {
   menuBox.id = "mdniceMenu";
   menuBox.style.position = "fixed";
   menuBox.style.right = btnBox.offsetWidth + "px";
-  menuBox.style.top = menuBtn.offsetTop + btnBox.offsetTop + "px";
+  // menuBox.style.top = menuBtn.offsetTop + btnBox.offsetTop + "px";
+  menuBox.style.top = btnBox.offsetTop + "px";
   menuBox.style.background = "#c4dde9";
   menuBox.style.opacity = "0.7";
   menuBox.style.padding = "1em 0.5em";
   menuBox.style.lineHeight = "1.5em";
   menuBox.style.borderRadius = "1em";
-  menuBox.style.height = "20em";
+  // menuBox.style.height = "20em";
+  menuBox.style.height = `calc(100% - ${btnBox.offsetTop}px)`;
   menuBox.style.overflow = "scroll";
   menuBox.style.color = "#0335f3";
   menuBox.style.display = "none";
