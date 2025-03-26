@@ -169,23 +169,36 @@ function chineseToArabic(chineseStr) {
   const numMap = {
     零: 0,
     一: 1,
+    壹: 1,
     二: 2,
+    两: 2,
     三: 3,
+    叁: 3,
     四: 4,
+    肆: 4,
     五: 5,
+    伍: 5,
     六: 6,
+    陆: 6,
     七: 7,
+    柒: 7,
     八: 8,
+    捌: 8,
     九: 9,
+    玖: 9,
   };
 
   const unitMap = {
     十: { value: 10, sec: false },
+    拾: { value: 10, sec: false },
     百: { value: 100, sec: false },
+    佰: { value: 100, sec: false },
     千: { value: 1000, sec: false },
+    仟: { value: 1000, sec: false },
     万: { value: 10000, sec: true },
-    億: { value: 100000000, sec: true },
+    萬: { value: 10000, sec: true },
     亿: { value: 100000000, sec: true },
+    億: { value: 100000000, sec: true },
   };
 
   let total = 0; // 最终结果
@@ -228,7 +241,11 @@ function chineseToArabic(chineseStr) {
     }
   }
 
-  processSection(); // 处理最后的小节
+  const last2 = chineseStr.slice(-2)[0];
+  const last2Unit = unitMap[last2];
+  if (last2Unit) {
+    current = (current * last2Unit.value) / 10;
+  }
   return total + section + current;
 }
 function getVisibleElements(selector = "*", threshold = 1) {
