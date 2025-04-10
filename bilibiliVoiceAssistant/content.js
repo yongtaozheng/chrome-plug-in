@@ -1,23 +1,5 @@
 const { pinyin } = window.pinyinPro;
 
-// const cmd = "下拉";
-// const text = "你是啊麻将啊下啦啊麻将麻将麻将";
-
-// const cmdPinyin = " " + pinyin(cmd, { toneType: "none" }) + " ";
-// console.log("%c Line:7 🥤 cmdPinyin", "color:#f5ce50", cmdPinyin);
-// const textPinyin = " " + pinyin(text, { toneType: "none" }) + " ";
-// console.log("%c Line:9 🍉 textPinyin", "color:#b03734", textPinyin);
-
-// if (textPinyin.includes(cmdPinyin)) {
-//   const index = textPinyin.indexOf(cmdPinyin);
-//   const prefix = textPinyin.slice(0, index);
-//   const prefixNum = prefix.split(" ").length - 1;
-//   const newText =
-//     text.slice(0, prefixNum) + cmd + text.slice(prefixNum + cmd.length);
-//   console.log("%c Line:16 🥒 newText", "color:#465975", newText);
-// }
-// console.log(pinyin("浏览器插件", { toneType: "none" }));
-
 //命令配置
 const command = {
   搜索: {
