@@ -171,6 +171,7 @@ function chineseToArabic(chineseStr) {
     一: 1,
     壹: 1,
     二: 2,
+    贰: 2,
     两: 2,
     三: 3,
     叁: 3,
