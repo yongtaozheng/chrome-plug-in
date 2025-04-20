@@ -1,5 +1,65 @@
 const { pinyin } = window.pinyinPro;
 
+class Subtitle {
+  constructor(config = {}) {
+    this.timer = null;
+    this.id = "bilibiliVoiceAssistantSubtitle";
+    this.subtitle = null;
+    this.showTime = 3000;
+    this.contentSelector = ".live-player-mounter";
+    Object.assign(this, config);
+  }
+  generateSubtitle() {
+    const iframes = document.querySelectorAll("iframe");
+    let iframe = null;
+    for (let i = 0; i < iframes.length; i++) {
+      if (iframes[i].src.includes("live.bilibili.com")) {
+        iframe = iframes[i];
+        break;
+      }
+    }
+    let content = document.querySelector(this.contentSelector);
+    if (!content) {
+      if (!iframe) return;
+      content = iframe.contentDocument.querySelector(this.contentSelector);
+    }
+    if (!content) return;
+    if (this.subtitle) return this.subtitle;
+    const subtitle = document.createElement("div");
+    subtitle.style.position = "absolute";
+    subtitle.style.bottom = "10px";
+    subtitle.style.left = "5%";
+    subtitle.style.color = "white";
+    subtitle.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+    subtitle.style.borderRadius = "5px";
+    subtitle.style.fontSize = "32px";
+    subtitle.style.zIndex = "9999";
+    subtitle.innerText = "";
+    subtitle.id = this.id;
+    subtitle.style.width = "90%";
+    subtitle.style.textAlign = "center";
+    subtitle.style.display = "none";
+    subtitle.style.fontWeight = "bold";
+    subtitle.style.color = "skyblue";
+    content.appendChild(subtitle);
+    this.subtitle = subtitle;
+    return subtitle;
+  }
+  updateSubtitle(text) {
+    let subtitle = this.subtitle;
+    if (!subtitle) {
+      subtitle = this.generateSubtitle();
+    }
+    if (!subtitle || !text) return;
+    subtitle.innerText = text;
+    subtitle.style.display = "block";
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      subtitle.style.display = "none";
+    }, this.showTime);
+  }
+}
+
 //命令配置
 const command = {
   搜索: {
@@ -651,6 +711,12 @@ if (!("webkitSpeechRecognition" in window)) {
   alert("当前浏览器不支持语音识别功能，请使用Chrome或Edge");
 } else {
   const recognition = new webkitSpeechRecognition();
+  let subtitle = null;
+
+  if (location.hostname === "live.bilibili.com") {
+    subtitle = new Subtitle();
+    subtitle.generateSubtitle();
+  }
   // 关键参数配置
   recognition.continuous = true; // 持续识别
   recognition.interimResults = true; // 返回中间结果
@@ -684,6 +750,13 @@ if (!("webkitSpeechRecognition" in window)) {
     let fullText = "";
     for (let i = event.resultIndex; i < results.length; i++) {
       fullText += results[i][0].transcript;
+    }
+    // console.log("%c Line:692 🍡 fullText", "color:#f5ce50", fullText);
+    if (location.hostname === "live.bilibili.com") {
+      if (!subtitle) {
+        subtitle = new Subtitle();
+      }
+      subtitle.updateSubtitle(fullText);
     }
     const judgeList = ["搜索"];
     if (!processed) {

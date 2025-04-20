@@ -26,7 +26,8 @@
     {
       "matches": [
         "https://www.bilibili.com/*",
-        "https://search.bilibili.com/*"
+        "https://search.bilibili.com/*",
+        "https://live.bilibili.com/*"
       ],
       "js": ["pinyin.js", "content.js"],
       "run_at": "document_end"
