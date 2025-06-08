@@ -117,3 +117,5 @@ dmypy.json
 .pyre/
 package-lock.json
 node_modules/
+网页拼音注释/
+*.zip
